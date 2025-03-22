@@ -3,32 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Group Website</title>
+    <title>Crustiq RBLX</title>
     <style>
+        /* Gradient Background */
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff7eb3, #ff758c, #ff7eb3);
+            animation: backgroundAnimation 6s infinite alternate;
             text-align: center;
-            background-color: #f4f4f4;
         }
+
+        /* Background Gradient Animation */
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(45deg, #ff7eb3, #ff758c); }
+            100% { background: linear-gradient(45deg, #6a11cb, #2575fc); }
+        }
+
+        /* Heading Animation */
         h1 {
-            color: #333;
-        }
-        a {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #007bff;
+            font-size: 3rem;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
+            animation: fadeIn 2s ease-in-out;
         }
-        a:hover {
-            background: #0056b3;
+
+        /* Button Styling */
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid white;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Button Hover Animation */
+        .button:hover {
+            background: white;
+            color: #ff758c;
+            transform: scale(1.1);
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Our Group Website</h1>
-    <p>Here are some important links:</p>
-    <a href="https://discord.com" target="_blank">Join Our Discord</a>
+    <h1>Welcome to Crustiq RBLX</h1>
+    <a href="https://your-link-here.com" class="button">Visit Us</a>
 </body>
 </html>
