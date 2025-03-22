@@ -3,65 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crustiq RBLX</title>
+    <title>Crustiq Login</title>
     <style>
-        /* Gradient Background */
+        /* General Styling */
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(45deg, #ff7eb3, #ff758c, #ff7eb3);
-            animation: backgroundAnimation 6s infinite alternate;
             text-align: center;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Background Gradient Animation */
-        @keyframes backgroundAnimation {
-            0% { background: linear-gradient(45deg, #ff7eb3, #ff758c); }
-            100% { background: linear-gradient(45deg, #6a11cb, #2575fc); }
+        /* Animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Heading Animation */
-        h1 {
-            font-size: 3rem;
+        /* Form Container */
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Input Fields */
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Buttons */
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background: #ff758c;
             color: white;
-            animation: fadeIn 2s ease-in-out;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* Button Styling */
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: white;
-            background: rgba(0, 0, 0, 0.2);
-            border: 2px solid white;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s ease-in-out;
+        button:hover {
+            background: #ff3e5a;
         }
 
-        /* Button Hover Animation */
-        .button:hover {
-            background: white;
-            color: #ff758c;
-            transform: scale(1.1);
-        }
-
-        /* Fade In Animation */
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Logout Button */
+        #logoutBtn {
+            display: none;
+            background: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Crustiq RBLX</h1>
-    <a href="https://your-link-here.com" class="button">Visit Us</a>
+
+    <div class="container">
+        <h2>Welcome to Crustiq</h2>
+        <input type="email" id="email" placeholder="Enter your email">
+        <input type="password" id="password" placeholder="Enter your password">
+        <button onclick="registerUser()">Register</button>
+        <button onclick="loginUser()">Login</button>
+        <button id="logoutBtn" onclick="logoutUser()">Logout</button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD19Fqu6Mgwd3qZEh4JZK1FmODnpVRZGFY",
+            authDomain: "crustiq-nav.firebaseapp.com",
+            projectId: "crustiq-nav",
+            storageBucket: "crustiq-nav.firebasestorage.app",
+            messagingSenderId: "917322140586",
+            appId: "1:917322140586:web:930157bfb98d2babab79d3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Register User
+        function registerUser() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Registration successful!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+
+        // Login User
+        function loginUser() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Login successful!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+
+        // Logout User
+        function logoutUser() {
+            signOut(auth)
+                .then(() => {
+                    alert("Logout successful!");
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+
+        // Track Authentication State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("logoutBtn").style.display = "block";
+            } else {
+                document.getElementById("logoutBtn").style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
