@@ -71,8 +71,8 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Register User
-        function registerUser() {
+        // Ensure functions are globally accessible
+        window.registerUser = function() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             auth.createUserWithEmailAndPassword(email, password)
@@ -82,10 +82,9 @@
                 .catch((error) => {
                     alert(error.message);
                 });
-        }
+        };
 
-        // Login User
-        function loginUser() {
+        window.loginUser = function() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             auth.signInWithEmailAndPassword(email, password)
@@ -95,10 +94,9 @@
                 .catch((error) => {
                     alert(error.message);
                 });
-        }
+        };
 
-        // Logout User
-        function logoutUser() {
+        window.logoutUser = function() {
             auth.signOut()
                 .then(() => {
                     alert("Logout successful!");
@@ -106,7 +104,7 @@
                 .catch((error) => {
                     alert(error.message);
                 });
-        }
+        };
 
         // Track Authentication State
         auth.onAuthStateChanged((user) => {
